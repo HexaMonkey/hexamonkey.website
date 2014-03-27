@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>HexaMonkey</title>
+		<meta http-equiv="x-ua-compatible" content="IE=8" />
+		<link href="body.css" rel="stylesheet" type="text/css" />
+	</head>
+	<body>
+		<div id="page">
+		<div id="navigation">
+			<div id="title">
+				<a href="/"><img src="media/title.png"/></a>
+			</div>
+			<div id="navbar">
+				<h1>Main</h1>
+				<ul>
+					<li><a href="/">About</a></li>
+					<li><a href="contribute.php">Contribute</a></li>
+				</ul>
+				<h1>Download</h1>
+				<ul>
+					<li><a href="download.php">HexaMonkey</a></li>
+				</ul>
+				<h1>Documentation</h1>
+				<ul>
+					<li><a href="hmdoc.php">HMscript</a></li>
+					<li><a href="doc/">Developer</a></li>
+					<li><a href="archdoc.php">Architecture</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="content">
+			<div id="spacing"> </div>
+			<h1>HexaMonkey - An open-source multimedia analyser</h1>
+
+			<h2>About</h2>
+
+			<p>HexaMonkey is a freely distributed framework which goal is to provide tools to view the internal structure of any binary file and navigate through it seamlessly. It can be used to facilitate the development and debugging of encoding and decoding software.</p>
+			<p>It relies on lazy and asynchronous parsing to offer a pleasant experience to the user. It is highly exentensible thanks to its modular architecture and a powerful scripting langage : HMscript.<p>
+			<p>The formats already supported are :
+			<ul>
+				<li>Video :
+					<ul>
+						<li>mpeg4</li>
+						<li>mpeg2-ts</li>
+						<li>matrovska</li>
+						<li>avi</li>
+						<li>asf/wmw (incomplete)</li>
+					</ul>
+				</li>
+				<li>Image :
+					<ul>
+						<li>png</li>
+						<li>jpeg (incomplete)</li>
+						<li>gif</li>
+					</ul>
+				</li>
+				<li>Archive :
+					<ul>
+						<li>zip</li>
+					</ul>
+				</li>
+				<li>Database files :
+					<ul>
+						<li>sqlite</li>
+					</ul>
+				</li>
+			</ul>
+			<p>We strongly encourage you to implement other formats and share them : see the HMScript <a href="hmdoc.php">documentation</a> for more information.</p>
+			<div style="display:table;margin:auto"><img src="media/screenshot.png"/></div>
+
+			</div>
+			<div id="footer">&copy; Copyright 2013 HexaMonkey - <a href="mailto:hexamonkey@hexamonkey.com">contact</a></div>
+		</div>
+	</body>
+</html>

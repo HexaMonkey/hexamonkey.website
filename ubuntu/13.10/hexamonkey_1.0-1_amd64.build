@@ -1,0 +1,443 @@
+ dpkg-buildpackage -rfakeroot -D -us -uc
+dpkg-buildpackage: source package hexamonkey
+dpkg-buildpackage: source version 1.0-1
+dpkg-buildpackage: source changed by Guillaume Bouteille <duffman@gb2n.org>
+ dpkg-source --before-build hexamonkey
+dpkg-buildpackage: host architecture amd64
+ fakeroot debian/rules clean
+dh clean
+   dh_testdir
+   dh_auto_clean
+   dh_clean
+ dpkg-source -b hexamonkey
+dpkg-source: info: using source format `3.0 (quilt)'
+dpkg-source: info: building hexamonkey using existing ./hexamonkey_1.0.orig.tar.gz
+dpkg-source: info: building hexamonkey in hexamonkey_1.0-1.debian.tar.gz
+dpkg-source: info: building hexamonkey in hexamonkey_1.0-1.dsc
+ debian/rules build
+dh build
+   dh_testdir
+   dh_auto_configure
+   dh_auto_build
+make[1]: Entering directory `/home/test/build/build/hexamonkey'
+cd compiler/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/compiler/compiler.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[2]: Entering directory `/home/test/build/build/hexamonkey/compiler'
+g++  -I../ -o model.o -c model.cpp
+g++  -I../ -o ../core/util/strutil.o -c ../core/util/strutil.cpp
+g++  -I../ -o ../core/util/csvreader.o -c ../core/util/csvreader.cpp
+g++  -I../ -o model model.o ../core/util/strutil.o ../core/util/csvreader.o
+./model
+bison --warnings=none -d compiler.y
+flex -o compiler.yy.c compiler.flex
+cc  -o compiler.yy.o -c compiler.yy.c
+cc  -o compiler.tab.o -c compiler.tab.c
+cc  -o hexacompiler compiler.yy.o compiler.tab.o
+sed s/compiler.tab.h/compilerExp.tab.h/g compiler.flex > compilerExp.flex
+sed s/main:file/main:right_value/g compiler.y > compilerExp.y
+bison --warnings=none -d compilerExp.y
+flex -o compilerExp.yy.c compilerExp.flex
+cc  -o compilerExp.yy.o -c compilerExp.yy.c
+cc  -o compilerExp.tab.o -c compilerExp.tab.c
+cc  -o expcompiler compilerExp.yy.o compilerExp.tab.o
+rm compilerExp.tab.h compilerExp.yy.c compiler.tab.h compiler.yy.c
+make[2]: Leaving directory `/home/test/build/build/hexamonkey/compiler'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[2]: Entering directory `/home/test/build/build/hexamonkey/core'
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o variant.o variant.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o showcase.o showcase.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o parser.o parser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o objecttypetemplate.o objecttypetemplate.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o objecttype.o objecttype.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o object.o object.cpp
+object.cpp: In member function ‘void Object::seekObjectEnd()’:
+object.cpp:234:46: warning: ISO C++ says that these are ambiguous, even though the worst conversion for the first is better than the worst conversion for the second: [enabled by default]
+     _file.seekg(_beginningPos+_pos.toInteger(), std::ios::beg);
+                                              ^
+In file included from /usr/include/c++/4.8/bits/char_traits.h:40:0,
+                 from /usr/include/c++/4.8/string:40,
+                 from /usr/include/c++/4.8/random:41,
+                 from /usr/include/c++/4.8/bits/stl_algo.h:65,
+                 from /usr/include/c++/4.8/algorithm:62,
+                 from object.cpp:18:
+/usr/include/c++/4.8/bits/postypes.h:178:7: note: candidate 1: std::fpos<_StateT> std::fpos<_StateT>::operator+(std::streamoff) const [with _StateT = __mbstate_t; std::streamoff = long int]
+       operator+(streamoff __off) const
+       ^
+object.cpp:234:46: note: candidate 2: operator+(std::streamoff {aka long int}, long long int) <built-in>
+     _file.seekg(_beginningPos+_pos.toInteger(), std::ios::beg);
+                                              ^
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o moduleloader.o moduleloader.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o module.o module.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o mapmodule.o mapmodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o file.o file.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o containerparser.o containerparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o syncbyteformatdetector.o formatdetector/syncbyteformatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o standardformatdetector.o formatdetector/standardformatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o magicformatdetector.o formatdetector/magicformatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o formatdetector.o formatdetector/formatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o extensionformatdetector.o formatdetector/extensionformatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o compositeformatdetector.o formatdetector/compositeformatdetector.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o variablepath.o interpreter/variablepath.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o variable.o interpreter/variable.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o program.o interpreter/program.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o programloader.o interpreter/programloader.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o fromfileparser.o interpreter/fromfileparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o fromfilemodule.o interpreter/fromfilemodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o filter.o interpreter/filter.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o evaluator.o interpreter/evaluator.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o blockexecution.o interpreter/blockexecution.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o typescope.o interpreter/scope/typescope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o scope.o interpreter/scope/scope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o objectscope.o interpreter/scope/objectscope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o localscope.o interpreter/scope/localscope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o functionscope.o interpreter/scope/functionscope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o compositescope.o interpreter/scope/compositescope.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o tupleparser.o modules/default/tupleparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o fileparser.o modules/default/fileparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o defaultmodule.o modules/default/defaultmodule.cpp
+modules/default/defaultmodule.cpp: In lambda function:
+modules/default/defaultmodule.cpp:261:33: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+             if(start < str.size())
+                                 ^
+modules/default/defaultmodule.cpp:263:42: warning: comparison between signed and unsigned integer expressions [-Wsign-compare]
+                 if(start+size < str.size())
+                                          ^
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o arrayparser.o modules/default/arrayparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o wordparser.o modules/standard/wordparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o standardmodule.o modules/standard/standardmodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o intparser.o modules/standard/intparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o floatparser.o modules/standard/floatparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o bitparser.o modules/standard/bitparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmlsimpleparser.o modules/ebml/ebmlsimpleparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmlmodule.o modules/ebml/ebmlmodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmlmasterparser.o modules/ebml/ebmlmasterparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmllargeintegerparser.o modules/ebml/ebmllargeintegerparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmldateparser.o modules/ebml/ebmldateparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o ebmlcontainerparser.o modules/ebml/ebmlcontainerparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o hmcmodule.o modules/hmc/hmcmodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o mkvmodule.o modules/mkv/mkvmodule.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o strutil.o util/strutil.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o iterutil.o util/iterutil.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o fileutil.o util/fileutil.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o csvreader.o util/csvreader.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o bitutil.o util/bitutil.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o dataparser.o modules/default/dataparser.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIC  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o osutil.o util/osutil.cpp
+rm -f libhexamonkey.so.1.0.0 libhexamonkey.so libhexamonkey.so.1 libhexamonkey.so.1.0
+g++ -m64 -Wl,-O1 -shared -Wl,-soname,libhexamonkey.so.1 -o libhexamonkey.so.1.0.0 variant.o showcase.o parser.o objecttypetemplate.o objecttype.o object.o moduleloader.o module.o mapmodule.o file.o containerparser.o syncbyteformatdetector.o standardformatdetector.o magicformatdetector.o formatdetector.o extensionformatdetector.o compositeformatdetector.o variablepath.o variable.o program.o programloader.o fromfileparser.o fromfilemodule.o filter.o evaluator.o blockexecution.o typescope.o scope.o objectscope.o localscope.o functionscope.o compositescope.o tupleparser.o fileparser.o defaultmodule.o arrayparser.o wordparser.o standardmodule.o intparser.o floatparser.o bitparser.o ebmlsimpleparser.o ebmlmodule.o ebmlmasterparser.o ebmllargeintegerparser.o ebmldateparser.o ebmlcontainerparser.o hmcmodule.o mkvmodule.o strutil.o iterutil.o fileutil.o csvreader.o bitutil.o dataparser.o osutil.o    
+ln -s libhexamonkey.so.1.0.0 libhexamonkey.so
+ln -s libhexamonkey.so.1.0.0 libhexamonkey.so.1
+ln -s libhexamonkey.so.1.0.0 libhexamonkey.so.1.0
+make[2]: Leaving directory `/home/test/build/build/hexamonkey/core'
+cd gui/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/gui/gui.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[2]: Entering directory `/home/test/build/build/hexamonkey/gui'
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o main.o main.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o mainwindow.o mainwindow.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treewidget.o tree/treewidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treeview.o tree/treeview.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treeobjectitem.o tree/treeobjectitem.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treemodel.o tree/treemodel.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treeitem.o tree/treeitem.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o htmldelegate.o tree/htmldelegate.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o filterwidget.o tree/filterwidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfilewidget.o hex/hexfilewidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfileview.o hex/hexfileview.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfilesearchwidget.o hex/hexfilesearchwidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfilemodel.o hex/hexfilemodel.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfileheader.o hex/hexfileheader.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o hexfiledelegate.o hex/hexfiledelegate.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o worker.o mt/worker.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o tasklist.o mt/tasklist.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o resourcemanager.o mt/resourcemanager.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o resource.o mt/resource.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o parsingtask.o mt/parsingtask.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o treefileitem.o tree/treefileitem.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o qtprogramloader.o qtprogramloader.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/rcc -name ressources ressources.qrc -o qrc_ressources.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o qrc_ressources.o qrc_ressources.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. mainwindow.h -o moc_mainwindow.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_mainwindow.o moc_mainwindow.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/treewidget.h -o moc_treewidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_treewidget.o moc_treewidget.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/treeview.h -o moc_treeview.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_treeview.o moc_treeview.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/treeobjectitem.h -o moc_treeobjectitem.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_treeobjectitem.o moc_treeobjectitem.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/treemodel.h -o moc_treemodel.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_treemodel.o moc_treemodel.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/treeitem.h -o moc_treeitem.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_treeitem.o moc_treeitem.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/htmldelegate.h -o moc_htmldelegate.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_htmldelegate.o moc_htmldelegate.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. tree/filterwidget.h -o moc_filterwidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_filterwidget.o moc_filterwidget.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. hex/hexfilewidget.h -o moc_hexfilewidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_hexfilewidget.o moc_hexfilewidget.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. hex/hexfileview.h -o moc_hexfileview.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_hexfileview.o moc_hexfileview.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. hex/hexfilesearchwidget.h -o moc_hexfilesearchwidget.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_hexfilesearchwidget.o moc_hexfilesearchwidget.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. hex/hexfilemodel.h -o moc_hexfilemodel.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_hexfilemodel.o moc_hexfilemodel.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. hex/hexfileheader.h -o moc_hexfileheader.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_hexfileheader.o moc_hexfileheader.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. mt/worker.h -o moc_worker.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_worker.o moc_worker.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. mt/resourcemanager.h -o moc_resourcemanager.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_resourcemanager.o moc_resourcemanager.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. mt/resource.h -o moc_resource.cpp
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DUSE_QT -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_resource.o moc_resource.cpp
+g++ -m64 -Wl,-O1 -o hexamonkey main.o mainwindow.o treewidget.o treeview.o treeobjectitem.o treemodel.o treeitem.o htmldelegate.o filterwidget.o hexfilewidget.o hexfileview.o hexfilesearchwidget.o hexfilemodel.o hexfileheader.o hexfiledelegate.o worker.o tasklist.o resourcemanager.o resource.o parsingtask.o treefileitem.o qtprogramloader.o qrc_ressources.o moc_mainwindow.o moc_treewidget.o moc_treeview.o moc_treeobjectitem.o moc_treemodel.o moc_treeitem.o moc_htmldelegate.o moc_filterwidget.o moc_hexfilewidget.o moc_hexfileview.o moc_hexfilesearchwidget.o moc_hexfilemodel.o moc_hexfileheader.o moc_worker.o moc_resourcemanager.o moc_resource.o   -L/usr/X11R6/lib64 -L/home/test/build/build/hexamonkey/core -lhexamonkey -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Gui -lQt5Core -lGL -lpthread 
+make[2]: Leaving directory `/home/test/build/build/hexamonkey/gui'
+cd cli/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/cli/cli.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[2]: Entering directory `/home/test/build/build/hexamonkey/cli'
+g++ -c -m64 -pipe -Wno-unused-parameter -O2 -std=c++0x -Wall -W -fPIE  -I/usr/share/qt5/mkspecs/linux-g++-64 -I.. -o main.o main.cpp
+g++ -m64 -Wl,-O1 -o hexamonkey-cli main.o   -L/home/test/build/build/hexamonkey/core -lhexamonkey 
+make[2]: Leaving directory `/home/test/build/build/hexamonkey/cli'
+cd test/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/test.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[2]: Entering directory `/home/test/build/build/hexamonkey/test'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[3]: Entering directory `/home/test/build/build/hexamonkey/test/core'
+cd main/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/main/main.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[4]: Entering directory `/home/test/build/build/hexamonkey/test/core/main'
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/main\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o main.o main.cpp
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/main\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o test_variant.o test_variant.cpp
+In file included from test_variant.cpp:5:0:
+../../../core/objecttype.h:126:10: warning: unused parameter ‘first’ [-Wunused-parameter]
+     void _setParameters(int first)
+          ^
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/main\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. test_variant.h -o moc_test_variant.cpp
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/main\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_test_variant.o moc_test_variant.cpp
+g++ -m64 -Wl,-O1 -o run_test main.o test_variant.o moc_test_variant.o   -L/usr/X11R6/lib64 -L/home/test/build/build/hexamonkey/core -lhexamonkey -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Test -lQt5Gui -lQt5Core -lGL -lpthread 
+make[4]: Leaving directory `/home/test/build/build/hexamonkey/test/core/main'
+cd formatdetector/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/formatdetector/formatdetector.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[4]: Entering directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/formatdetector\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o test_formatdetector.o test_formatdetector.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/formatdetector\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. test_formatdetector.h -o moc_test_formatdetector.cpp
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/formatdetector\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_test_formatdetector.o moc_test_formatdetector.cpp
+g++ -m64 -Wl,-O1 -o run_test test_formatdetector.o moc_test_formatdetector.o   -L/usr/X11R6/lib64 -L/home/test/build/build/hexamonkey/core -lhexamonkey -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Test -lQt5Gui -lQt5Core -lGL -lpthread 
+make[4]: Leaving directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+cd util/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/util/util.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && make -f Makefile 
+make[4]: Entering directory `/home/test/build/build/hexamonkey/test/core/util'
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/util\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o test_util.o test_util.cpp
+/usr/lib/x86_64-linux-gnu/qt5/bin/moc -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/util\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. test_util.h -o moc_test_util.cpp
+g++ -c -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_TESTLIB_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR=\"/home/test/build/build/hexamonkey/test/core/util\" -I/usr/share/qt5/mkspecs/linux-g++-64 -I. -I../../.. -I/usr/include/qt5 -I/usr/include/qt5/QtWidgets -I/usr/include/qt5/QtTest -I/usr/include/qt5/QtGui -I/usr/include/qt5/QtCore -I. -o moc_test_util.o moc_test_util.cpp
+g++ -m64 -Wl,-O1 -o run_test test_util.o moc_test_util.o   -L/usr/X11R6/lib64 -L/home/test/build/build/hexamonkey/core -lhexamonkey -lQt5Widgets -L/usr/lib/x86_64-linux-gnu -lQt5Test -lQt5Gui -lQt5Core -lGL -lpthread 
+make[4]: Leaving directory `/home/test/build/build/hexamonkey/test/core/util'
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/test/core'
+make[2]: Leaving directory `/home/test/build/build/hexamonkey/test'
+make[1]: Leaving directory `/home/test/build/build/hexamonkey'
+   debian/rules override_dh_auto_test
+make[1]: Entering directory `/home/test/build/build/hexamonkey'
+LD_LIBRARY_PATH=$(pwd)/core /usr/bin/make check
+make[2]: Entering directory `/home/test/build/build/hexamonkey'
+cd compiler/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/compiler/compiler.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[3]: Entering directory `/home/test/build/build/hexamonkey/compiler'
+make[3]: Nothing to be done for `check'.
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/compiler'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[3]: Entering directory `/home/test/build/build/hexamonkey/core'
+make[3]: Nothing to be done for `check'.
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/core'
+cd gui/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/gui/gui.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[3]: Entering directory `/home/test/build/build/hexamonkey/gui'
+make[3]: Nothing to be done for `check'.
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/gui'
+cd cli/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/cli/cli.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[3]: Entering directory `/home/test/build/build/hexamonkey/cli'
+make[3]: Nothing to be done for `check'.
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/cli'
+cd test/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/test.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[3]: Entering directory `/home/test/build/build/hexamonkey/test'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[4]: Entering directory `/home/test/build/build/hexamonkey/test/core'
+cd main/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/main/main.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/main'
+LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}  ./run_test 
+********* Start testing of TestVariant *********
+Config: Using QTest library 5.0.2, Qt 5.0.2
+PASS   : TestVariant::initTestCase()
+Invalid operation : +=
+PASS   : TestVariant::unknown()
+PASS   : TestVariant::boolean()
+PASS   : TestVariant::integer()
+PASS   : TestVariant::unsignedInteger()
+PASS   : TestVariant::floating()
+PASS   : TestVariant::string()
+PASS   : TestVariant::objectType()
+PASS   : TestVariant::conversion()
+PASS   : TestVariant::cleanupTestCase()
+Totals: 10 passed, 0 failed, 0 skipped
+********* Finished testing of TestVariant *********
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/main'
+cd formatdetector/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/formatdetector/formatdetector.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}  ./run_test 
+********* Start testing of TestFormatDetector *********
+Config: Using QTest library 5.0.2, Qt 5.0.2
+PASS   : TestFormatDetector::initTestCase()
+PASS   : TestFormatDetector::testExtensionFormatDetector()
+PASS   : TestFormatDetector::testMagicFormatDetector()
+PASS   : TestFormatDetector::testSyncbyteFormatDetector()
+PASS   : TestFormatDetector::testCompositeFormatDetector()
+PASS   : TestFormatDetector::testStandardFormatDetector()
+PASS   : TestFormatDetector::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped
+********* Finished testing of TestFormatDetector *********
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+cd util/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/util/util.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile check
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/util'
+LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}  ./run_test 
+********* Start testing of TestUtil *********
+Config: Using QTest library 5.0.2, Qt 5.0.2
+PASS   : TestUtil::initTestCase()
+PASS   : TestUtil::testCSVReader()
+PASS   : TestUtil::testBitUtil_msb()
+PASS   : TestUtil::testBitUtil_lsbMask()
+PASS   : TestUtil::testBitUtil_popCount()
+PASS   : TestUtil::testFileUtil_fileExists()
+PASS   : TestUtil::testFileUtil_getFile()
+PASS   : TestUtil::testFileUtil_getDirContent()
+PASS   : TestUtil::testStrUtil_strTo()
+PASS   : TestUtil::testStrUtil_toStr()
+PASS   : TestUtil::testStrUtil_toHex()
+PASS   : TestUtil::testStrUtil_intDisplay()
+PASS   : TestUtil::testStrUtil_fromHex()
+PASS   : TestUtil::testStrUtil_formatDate()
+PASS   : TestUtil::testStrUtil_formatDuration()
+PASS   : TestUtil::testStrUtil_extension()
+PASS   : TestUtil::testStrUtil_sizeDisplay()
+PASS   : TestUtil::testStrUtil_defineStyle()
+PASS   : TestUtil::testOptOwnPtr()
+PASS   : TestUtil::testIterationWrapper()
+PASS   : TestUtil::cleanupTestCase()
+Totals: 21 passed, 0 failed, 0 skipped
+********* Finished testing of TestUtil *********
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/util'
+make[4]: Leaving directory `/home/test/build/build/hexamonkey/test/core'
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/test'
+make[2]: Leaving directory `/home/test/build/build/hexamonkey'
+make[1]: Leaving directory `/home/test/build/build/hexamonkey'
+ fakeroot debian/rules binary
+dh binary
+   dh_testroot
+   dh_prep
+   debian/rules override_dh_auto_install
+make[1]: Entering directory `/home/test/build/build/hexamonkey'
+/usr/bin/make INSTALL_ROOT=$(pwd)/debian/hexamonkey install
+make[2]: Entering directory `/home/test/build/build/hexamonkey'
+cd compiler/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/compiler/compiler.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[3]: Entering directory `/home/test/build/build/hexamonkey/compiler'
+mkdir -p /home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin
+cp -f expcompiler /home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin
+cp -f hexacompiler /home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/compiler'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[3]: Entering directory `/home/test/build/build/hexamonkey/core'
+install -m 755 -p "libhexamonkey.so.1.0.0" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/lib/libhexamonkey.so.1.0.0"
+: --strip-unneeded "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/lib/libhexamonkey.so.1.0.0"
+ln -f -s "libhexamonkey.so.1.0.0" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/lib/libhexamonkey.so"
+ln -f -s "libhexamonkey.so.1.0.0" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/lib/libhexamonkey.so.1"
+ln -f -s "libhexamonkey.so.1.0.0" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/lib/libhexamonkey.so.1.0"
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/core'
+cd gui/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/gui/gui.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[3]: Entering directory `/home/test/build/build/hexamonkey/gui'
+install -m 755 -p "hexamonkey" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin/hexamonkey"
+: "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin/hexamonkey"
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/gui'
+cd cli/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/cli/cli.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[3]: Entering directory `/home/test/build/build/hexamonkey/cli'
+install -m 755 -p "hexamonkey-cli" "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin/hexamonkey-cli"
+: "/home/test/build/build/hexamonkey/debian/hexamonkey/usr/bin/hexamonkey-cli"
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/cli'
+cd test/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/test.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[3]: Entering directory `/home/test/build/build/hexamonkey/test'
+cd core/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/core.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[4]: Entering directory `/home/test/build/build/hexamonkey/test/core'
+cd main/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/main/main.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/main'
+make[5]: Nothing to be done for `install'.
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/main'
+cd formatdetector/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/formatdetector/formatdetector.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+make[5]: Nothing to be done for `install'.
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/formatdetector'
+cd util/ && ( test -e Makefile || /usr/lib/x86_64-linux-gnu/qt5/bin/qmake /home/test/build/build/hexamonkey/test/core/util/util.pro -nocache QMAKE_STRIP=: PREFIX=/usr -o Makefile ) && /usr/bin/make -f Makefile install
+make[5]: Entering directory `/home/test/build/build/hexamonkey/test/core/util'
+make[5]: Nothing to be done for `install'.
+make[5]: Leaving directory `/home/test/build/build/hexamonkey/test/core/util'
+make[4]: Leaving directory `/home/test/build/build/hexamonkey/test/core'
+make[3]: Leaving directory `/home/test/build/build/hexamonkey/test'
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/asf.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/asf.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/avi.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/avi.hm
+install -m 644 -p /home/test/build/build/hexamonkey/scripts/gif.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/jpeg.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/jpeg.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/microsoft.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/microsoft.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/mp4.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/mp4.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/png.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/png.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/rgb.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/rgb.hm
+install -m 644 -p /home/test/build/build/hexamonkey/scripts/sqlite.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/ts.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/ts.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/uuid.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/uuid.hm
+install -m 755 -p /home/test/build/build/hexamonkey/scripts/zip.hm /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/scripts/zip.hm
+install -m 755 -p /home/test/build/build/hexamonkey/models/hmcmodel.csv /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/hmcmodel.csv
+install -m 755 -p /home/test/build/build/hexamonkey/models/mkvmodel.xml /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/mkvmodel.xml
+install -m 755 -p /home/test/build/build/hexamonkey/gui/logo.svg /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/
+: /home/test/build/build/hexamonkey/debian/hexamonkey/usr/share/hexamonkey/logo.svg
+make[2]: Leaving directory `/home/test/build/build/hexamonkey'
+make[1]: Leaving directory `/home/test/build/build/hexamonkey'
+   dh_installdocs
+   dh_installchangelogs
+   dh_perl
+   dh_link
+   dh_compress
+   dh_fixperms
+   dh_strip
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: building package `hexamonkey' in `../hexamonkey_1.0-1_amd64.deb'.
+ dpkg-genchanges  >../hexamonkey_1.0-1_amd64.changes
+dpkg-genchanges: including full source code in upload
+ dpkg-source --after-build hexamonkey
+dpkg-buildpackage: full upload (original source is included)
+Now running lintian...
+W: hexamonkey source: ancient-standards-version 3.9.2 (current is 3.9.4)
+W: hexamonkey: package-name-doesnt-match-sonames libhexamonkey1
+W: hexamonkey: new-package-should-close-itp-bug
+W: hexamonkey: description-contains-duplicated-word and and
+W: hexamonkey: extended-description-line-too-long
+W: hexamonkey: extra-license-file usr/share/doc/hexamonkey/LICENSE.txt.gz
+W: hexamonkey: binary-without-manpage usr/bin/expcompiler
+W: hexamonkey: binary-without-manpage usr/bin/hexacompiler
+W: hexamonkey: binary-without-manpage usr/bin/hexamonkey
+W: hexamonkey: binary-without-manpage usr/bin/hexamonkey-cli
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/hmcmodel.csv
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/mkvmodel.xml
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/ts.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/logo.svg
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/zip.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/asf.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/microsoft.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/png.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/rgb.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/avi.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/jpeg.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/uuid.hm
+W: hexamonkey: executable-not-elf-or-script usr/share/hexamonkey/scripts/mp4.hm
+W: hexamonkey: non-dev-pkg-with-shlib-symlink usr/lib/libhexamonkey.so.1.0.0 usr/lib/libhexamonkey.so
+Finished running lintian.

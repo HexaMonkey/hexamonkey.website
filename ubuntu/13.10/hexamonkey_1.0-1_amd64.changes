@@ -1,0 +1,31 @@
+Format: 1.8
+Date: Thu, 31 Oct 2013 16:50:24 +0100
+Source: hexamonkey
+Binary: hexamonkey
+Architecture: source amd64
+Version: 1.0-1
+Distribution: UNRELEASED
+Urgency: low
+Maintainer: Guillaume Bouteille <duffman@gb2n.org>
+Changed-By: Guillaume Bouteille <duffman@gb2n.org>
+Description: 
+ hexamonkey - binary file analyser
+Changes: 
+ hexamonkey (1.0-1) UNRELEASED; urgency=low
+ .
+   * Initial release.
+Checksums-Sha1: 
+ a457fcc2ee805316e7921b6bc47bbc5481bc7f8d 822 hexamonkey_1.0-1.dsc
+ 74bafb00e4197918c45bed5ce98554e5886526bd 1136395 hexamonkey_1.0.orig.tar.gz
+ 341f625464a82e1b14858dfadb35dadc2c8382c3 2171 hexamonkey_1.0-1.debian.tar.gz
+ f73cddab75a690b460b54159881873f8382acafc 386982 hexamonkey_1.0-1_amd64.deb
+Checksums-Sha256: 
+ 5b6c4950943c1a5b5814fb9391d2cd31a140648bc66ed6c7339fc6dc0b87af63 822 hexamonkey_1.0-1.dsc
+ 344e5adc92a5417d1513b125b687c80c5cd16df747361912ef9f15c88e82b110 1136395 hexamonkey_1.0.orig.tar.gz
+ bc45b762ed1bc3f61622595dffa45d12d85189f82771dedffc6c20869dab064c 2171 hexamonkey_1.0-1.debian.tar.gz
+ 4582082083f652122c828a8a01f3740aa8d30e0e8c777a5fecccdc0a9191e0b9 386982 hexamonkey_1.0-1_amd64.deb
+Files: 
+ aaff7ea06e0a2146d731d391de91a34e 822 misc optional hexamonkey_1.0-1.dsc
+ b74d126eaff4e191e3b71f58c97a4387 1136395 misc optional hexamonkey_1.0.orig.tar.gz
+ 9497accb519538f1b79dba46816295e8 2171 misc optional hexamonkey_1.0-1.debian.tar.gz
+ f677eff6d030d262d940f3f539daacdc 386982 misc optional hexamonkey_1.0-1_amd64.deb
