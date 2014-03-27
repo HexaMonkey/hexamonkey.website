@@ -7,6 +7,6 @@
             <p>There is also a lot to do on the core compiler and on the UI side. Please contact us if you want to help, we have plenty of ideas.</p>
             <h2>Contact</h2>
             <p>You can ask all kind of questions on the hexamonkey <a href="https://groups.google.com/forum/#!forum/hexamonkey">google group</a>.</p>
-            <p>We accept bugs and pull request directly on <a href="http://github.com/hexamonkey">github</a>.</p>
+            <p>We accept bugs and pull requests directly on <a href="http://github.com/hexamonkey">github</a>.</p>
             <p>We also sometimes hang out on irc, channel #hexamonkey on irc.freenode.net, you might see us there from time to time.</p>
 <?php require_once("footer.php"); ?>
